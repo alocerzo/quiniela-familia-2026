@@ -487,7 +487,7 @@ function showSection(id){
   document.querySelectorAll('.nav-btn')[{ranking:0,login:1,quiniela:2,admin:3}[id]]?.classList.add('active');
   if(id==='ranking')renderRanking();
   if(id==='quiniela')renderQuiniela();
-  if(id==='admin'){renderAdminMatches();renderPhaseButtons();renderAdminUsers();renderBolsa();populateAdminSelects();}
+  if(id==='admin'){renderAdminMatches();renderPhaseButtons();renderAdminUsers();renderBolsa();populateAdminSelects();document.querySelector('.admin-tab')?.classList.add('active');}
 }
 
 function renderPipeline(){
@@ -860,10 +860,14 @@ function showAdminMsg(msg,type){
   setTimeout(()=>{document.getElementById('admin-msg').innerHTML='';},3500);
 }
 function adminTab(tab){
-  const tabs=['resultados','fases','participantes','bolsa','global'];
+  const tabs=['resultados','fases','participantes','bolsa','torneo'];
   document.querySelectorAll('.admin-tab').forEach((t,i)=>t.classList.toggle('active',tabs[i]===tab));
   tabs.forEach(t=>{const el=document.getElementById('admin-'+t);if(el)el.style.display=t===tab?'':'none';});
-  if(tab==='bolsa')renderBolsa();if(tab==='participantes')renderAdminUsers();
+  if(tab==='resultados')renderAdminMatches();
+  if(tab==='fases')renderPhaseButtons();
+  if(tab==='participantes')renderAdminUsers();
+  if(tab==='bolsa')renderBolsa();
+  if(tab==='torneo')populateAdminSelects();
 }
 // ── PICKS MODAL ──────────────────────────────────────────────────────────────
 let predModalUser=null;
